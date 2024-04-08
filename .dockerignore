@@ -1,9 +1,18 @@
-# rust
-target/
-Cargo.lock
+# General files
+ReadMe.md
+Dockerfile
+run_docker.sh
+.git
+.gitignore
+.dockerignore
+listy_zadan/
 
 # executables
-*.exe
+**/*.exe
 
 # vscode
 .vscode/
+
+# rust
+**/target/
+**/Cargo.lock

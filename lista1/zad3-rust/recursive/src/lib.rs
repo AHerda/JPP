@@ -1,33 +1,31 @@
 pub fn factorial(n: u64) -> u64 {
-    (1..=n).product()
+    if n == 0 {
+        1
+    } else {
+        n * factorial(n - 1)
+    }
 }
 
 pub fn gcd(a: u64, b: u64) -> u64 {
-    let mut a2 = a;
-    let mut b2 = b;
-
-    while b2 != 0 {
-        let t = b2;
-        b2 = a2 % b2;
-        a2= t;
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
     }
-
-    a2
 }
 
-pub fn diophantine(a: i64, b: i64, c: i64) -> (i64, i64) {
-    let mut x = 0;
-    let mut y = 0;
-
-    while x < c {
-        if (c - a*x) % b == 0 {
-            y = (c - a*x) / b;
-            break;
-        }
-        x += 1;
+pub fn diophantine(a: i64, b: i64, c: i64) -> Option<(i64, i64)> {
+    if a == 0 && b == 0 && c != 0 {
+        return None;
+    } else if a == 0 {
+        return Some((0, c / b));
+    } else if b == 0 {
+        return Some((c / a, 0));
+    } else {
+        let (y, x) = diophantine(b, a % b, c)?;
+        let y = y - (a / b) * x;
+        Some((x, y))
     }
-
-    (x, y)
 }
 
 #[cfg(test)]
@@ -60,16 +58,16 @@ mod tests {
 
     #[test]
     fn diophantine_test() {
-        let (x, y) = diophantine(3, 5, 10);
+        let (x, y) = diophantine(3, 5, 10).unwrap();
         assert_eq!(3*x + 5*y, 10);
 
-        let (x, y) = diophantine(3, 5, 11);
+        let (x, y) = diophantine(3, 5, 11).unwrap();
         assert_eq!(3*x + 5*y, 11);
 
-        let (x, y) = diophantine(3, 5, 12);
+        let (x, y) = diophantine(3, 5, 12).unwrap();
         assert_eq!(3*x + 5*y, 12);
 
-        let (x, y) = diophantine(3, 7, 22);
+        let (x, y) = diophantine(3, 7, 22).unwrap();
         assert_eq!(3*x + 7*y, 22);
     }
 }
