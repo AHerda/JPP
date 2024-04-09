@@ -5,6 +5,8 @@ with Recursive; use Recursive;
 
 procedure Main is
 	x, y : Integer;
+	result_iter: Iterative.DiophantineEquationType;
+	result_recur: Recursive.DiophantineEquationType;
 begin
 	Put_Line(" === Iteracyjna implementacja funkcji matematycznych ===");
 	-- Obliczanie wartości 5!
@@ -14,8 +16,9 @@ begin
 	Put_Line(" - NWD(24, 36) = " & Natural'Image(Iterative.GCD(24, 36)));
 
 	-- Rozwiązywanie równania diofantycznego 3x + 5y = -3
-	if Iterative.DiophantineEquation(3, 5, -3, x, y) then
-		Put_Line(" - Rozwiązanie równania 3x + 5y = -3: x = " & Integer'Image(x) & ", y = " & Integer'Image(y));
+	result_iter := Iterative.DiophantineEquation(3, 5, -3);
+	if result_iter.valid then
+		Put_Line(" - Rozwiązanie równania 3x + 5y = -3: x = " & Integer'Image(result_iter.x) & ", y = " & Integer'Image(result_iter.y));
 	else
 		Put_Line(" - Rozwiązanie równania 3x + 5y = -3 nie istnieje");
 	end if;
@@ -28,8 +31,9 @@ begin
 	Put_Line(" - NWD(24, 36) = " & Natural'Image(Recursive.GCD(24, 36)));
 
 	-- Rozwiązywanie równania diofantycznego 3x + 5y = -3
-	if Recursive.DiophantineEquation(3, 5, -3, x, y) then
-		Put_Line(" - Rozwiązanie równania 3x + 5y = -3: x = " & Integer'Image(x) & ", y = " & Integer'Image(y));
+	result_recur := Recursive.DiophantineEquation(3, 5, -3);
+	if result_recur.valid then
+		Put_Line(" - Rozwiązanie równania 3x + 5y = -3: x = " & Integer'Image(result_recur.x) & ", y = " & Integer'Image(result_recur.y));
 	else
 		Put_Line(" - Rozwiązanie równania 3x + 5y = -3 nie istnieje");
 	end if;

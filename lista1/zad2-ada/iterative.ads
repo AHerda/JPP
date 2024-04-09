@@ -13,20 +13,20 @@ package Iterative is
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "factorial";
+			External_Name => "factorial_iter";
 
 	-- Funkcja obliczająca największy wspólny dzielnik dwóch liczb naturalnych
 	function GCD(a, b : Natural) return Natural
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "gcd";
+			External_Name => "gcd_iter";
 
 	-- Funkcja rozwiązująca liniowe równanie diofantyczne ax + by = c
 	function DiophantineEquation(a, b, c : Integer) return DiophantineEquationType
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "diophantine_equation";
+			External_Name => "diophantine_equation_iter";
 
 end Iterative;

@@ -21,25 +21,26 @@ package body Recursive is
 
 	-- Funkcja rozwiązująca liniowe równanie diofantyczne ax + by = c na liczbach całkowitych
 	function DiophantineEquation(a, b, c : Integer) return DiophantineEquationType is
-		result : Boolean;
+		x, y: Integer;
+		result: DiophantineEquationType;
 	begin
 		if a = 0 and b = 0 and c /= 0 then
-			x := 0;
-			y := 0;
-			return False;
+			return (0, 0, False);
 		elsif a = 0 then
 			x := 0;
 			y := c / b;
-			return True;
+			return (x, y, True);
 		elsif b = 0 then
 			x := c / a;
 			y := 0;
-			return True;
+			return (x, y, True);
 		end if;
 
-		result := DiophantineEquation(b, a mod b, c, y, x);
+		result := DiophantineEquation(b, a mod b, c);
+		x := result.y;
+		y := result.x;
 		y := y - (a / b) * x;
-		return result;
+		return (x, y, result.valid);
 	end DiophantineEquation;
 
 end Recursive;

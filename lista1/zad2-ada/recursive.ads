@@ -13,20 +13,20 @@ package Recursive is
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "factorial";
+			External_Name => "factorial_rec";
 
 	-- Funkcja obliczająca największy wspólny dzielnik dwóch liczb naturalnych
 	function GCD(a, b : Natural) return Natural
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "gcd";
+			External_Name => "gcd_rec";
 
 	-- Funkcja rozwiązująca liniowe równanie diofantyczne ax + by = c na liczbach całkowitych
 	function DiophantineEquation(a, b, c : Integer) return DiophantineEquationType
 		with
 			Export => True,
 			Convention => C,
-			External_Name => "diophantine_equation";
+			External_Name => "diophantine_equation_rec";
 
 end Recursive;

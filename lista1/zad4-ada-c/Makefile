@@ -6,20 +6,20 @@ CFLAGS = -Wall -Wextra
 ADADIR = ../zad2-ada
 
 # Main target
-all: iter recur
+all: test
 
-iter: $(ADADIR)/iterative.adb test.c
-	gnatmake -c $(ADADIR)/iterative.adb
-	gcc -c test.c
-	gnatbind $(ADADIR)/iterative.ali test.o
-	gnatlink test.o $(ADADIR)/iterative.ali
+test: test.o iterative.o recursive.o
+	$(CC) $(CFLAGS) -o $@ $^ -lgnat
 
-recur: $(ADADIR)/recursive.adb test.c
-	gnatmake -c $(ADADIR)/recursive.adb
-	gcc -c test.c
-	gnatbind $(ADADIR)/recursive.ali test.o
-	gnatlink test.o $(ADADIR)/recursive.ali
+test.o: test.c
+	$(CC) $(CFLAGS) -c $^
+
+iterative.o: $(ADADIR)/iterative.adb
+	gnatmake -c $^
+
+recursive.o: $(ADADIR)/recursive.adb
+	gnatmake -c $^
 
 # Clean rule
 clean:
-	rm -f test *.o $(ADADIR)/*.ali $(ADADIR)/*.o $(ADADIR)/*.s
+	rm -f test *.o *.ali

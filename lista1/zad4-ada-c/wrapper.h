@@ -6,13 +6,17 @@
 #include <stdbool.h>
 
 typedef struct {
-	uint32_t x;
-	uint32_t y;
+	int32_t x;
+	int32_t y;
 	bool valid;
-} result;
+} Result;
 
-extern uint32_t factorial(uint32_t n);
-extern uint32_t gdc(uint32_t a, uint32_t b);
-extern result diophantine_equation(int32_t a, int32_t b, int32_t c);
+extern uint32_t factorial_iter(uint32_t n);
+extern uint32_t gcd_iter(uint32_t a, uint32_t b);
+extern Result diophantine_equation_iter(int32_t a, int32_t b, int32_t c);
+
+extern uint32_t factorial_rec(uint32_t n);
+extern uint32_t gcd_rec(uint32_t a, uint32_t b);
+extern Result diophantine_equation_rec(int32_t a, int32_t b, int32_t c);
 
 #endif // WRAPPER_H

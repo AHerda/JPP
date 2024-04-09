@@ -26,7 +26,7 @@ package body Iterative is
 
 	-- Implementacja funkcji rozwiązującej liniowe równanie diofantyczne ax + by = c
 	function DiophantineEquation(a, b, c : Integer) return DiophantineEquationType is
-		a2, b2, x1, y1, x2, y2, q, r, temp : Integer;
+		a2, b2, x1, y1, x2, y2, q, r, temp, x, y : Integer;
 	begin
 		a2 := a;
 		b2 := b;
@@ -53,11 +53,11 @@ package body Iterative is
 		end loop;
 
 		if c mod a2 /= 0 then
-			return False;
+			return (0, 0, False);
 		else
 			x := x1 * (c / a2);
 			y := y1 * (c / a2);
-			return True;
+			return (x, y, True);
 		end if;
 	end DiophantineEquation;
 
