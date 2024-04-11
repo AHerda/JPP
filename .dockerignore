@@ -16,3 +16,6 @@ listy_zadan/
 # rust
 **/target/
 **/Cargo.lock
+
+# svn repo
+svn-repo/

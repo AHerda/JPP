@@ -5,26 +5,24 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Libraries
-LIBITER = ./libiter.a
-LIBRECUR = ./librecur.a
+LIBRECUR = ../zad3-rust/recursive
+LIBITER = ../zad3-rust/iterative
 
 
 # Default target
 all: recur iter
 
-recur: main.c librecursive.rlib
-	$(CC) $(CFLAGS) -o $@ main.c -L../zad3-rust/recursive/target/release -llista1
-	export LD_LIBRARY_PATH=../zad3-rust/recursive/target/release ./recur
+recur: main.c recursive
+	$(CC) $(CFLAGS) -o $@ main.c -L$(LIBRECUR)/target/release -lrecursive -lpthread -ldl
 
-iter: main.c libiterative.rlib
-	$(CC) $(CFLAGS) -o $@ main.c -L../zad3-rust/iterative/target/release -llista1
-	export LD_LIBRARY_PATH=../zad3-rust/iterative/target/release ./iter
+iter: main.c iterative
+	$(CC) $(CFLAGS) -o $@ main.c -L$(LIBITER)/target/release -literative -lpthread -ldl
 
-libiterative.rlib:
+iterative:
 	cd ../zad3-rust/iterative && cargo build --release && cd ../../zad7-rust-c/
 
-librecursive.rlib:
+recursive:
 	cd ../zad3-rust/recursive && cargo build --release && cd ../../zad7-rust-c/
 
 clean:
-	rm recur iter
+	rm -rf recur iter $(LIBRECUR)/taget $(LIBITER)/target $(LIBRECUR)/Cargo.lock $(LIBITER)/Cargo.lock
