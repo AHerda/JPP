@@ -1,8 +1,17 @@
-pub fn factorial(n: u64) -> u64 {
+#[repr(C)]
+pub struct Solution {
+    pub x: i64,
+    pub y: i64,
+    pub valid: bool,
+}
+
+#[no_mangle]
+pub extern "C" fn factorial(n: u64) -> u64 {
     (1..=n).product()
 }
 
-pub fn gcd(a: u64, b: u64) -> u64 {
+#[no_mangle]
+pub extern "C" fn gcd(a: u64, b: u64) -> u64 {
     let mut a2 = a;
     let mut b2 = b;
 
@@ -15,7 +24,8 @@ pub fn gcd(a: u64, b: u64) -> u64 {
     a2
 }
 
-pub fn diophantine(mut a: i64, mut b: i64, c: i64) -> Option<(i64, i64)> {
+#[no_mangle]
+pub extern "C" fn diophantine(mut a: i64, mut b: i64, c: i64) -> Solution {
     let mut x1 = 1;
     let mut y1 = 0;
     let mut x2 = 0;
@@ -38,11 +48,19 @@ pub fn diophantine(mut a: i64, mut b: i64, c: i64) -> Option<(i64, i64)> {
     }
 
     if c % a != 0 {
-        None
+        Solution {
+            x: 0,
+            y: 0,
+            valid: false,
+        }
     } else {
         let x = x1 * (c / a);
         let y = y1 * (c / a);
-        Some((x, y))
+        Solution {
+            x,
+            y,
+            valid: true,
+        }
     }
 }
 
@@ -76,16 +94,20 @@ mod tests {
 
     #[test]
     fn diophantine_test() {
-        let (x, y) = diophantine(3, 5, 10).unwrap();
-        assert_eq!(3 * x + 5 * y, 10);
+        let s = diophantine(3, 5, 10);
+        assert!(s.valid);
+        assert_eq!(3 * s.x + 5 * s.y, 10);
 
-        let (x, y) = diophantine(3, 5, 11).unwrap();
-        assert_eq!(3 * x + 5 * y, 11);
+        let s = diophantine(3, 5, 11);
+        assert!(s.valid);
+        assert_eq!(3 * s.x + 5 * s.y, 11);
 
-        let (x, y) = diophantine(3, 5, 12).unwrap();
-        assert_eq!(3 * x + 5 * y, 12);
+        let s = diophantine(3, 5, 12);
+        assert!(s.valid);
+        assert_eq!(3 * s.x + 5 * s.y, 12);
 
-        let (x, y) = diophantine(3, 7, 22).unwrap();
-        assert_eq!(3 * x + 7 * y, 22);
+        let s = diophantine(3, 7, 22);
+        assert!(s.valid);
+        assert_eq!(3 * s.x + 7 * s.y, 22);
     }
 }

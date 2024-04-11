@@ -1,4 +1,12 @@
-pub fn factorial(n: u64) -> u64 {
+#[repr(C)]
+pub struct Solution {
+    pub x: i64,
+    pub y: i64,
+    pub valid: bool,
+}
+
+#[no_mangle]
+pub extern "C" fn factorial(n: u64) -> u64 {
     if n == 0 {
         1
     } else {
@@ -6,7 +14,8 @@ pub fn factorial(n: u64) -> u64 {
     }
 }
 
-pub fn gcd(a: u64, b: u64) -> u64 {
+#[no_mangle]
+pub extern "C" fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
         a
     } else {
@@ -14,17 +23,31 @@ pub fn gcd(a: u64, b: u64) -> u64 {
     }
 }
 
-pub fn diophantine(a: i64, b: i64, c: i64) -> Option<(i64, i64)> {
+#[no_mangle]
+pub extern "C" fn diophantine(a: i64, b: i64, c: i64) -> Solution {
     if a == 0 && b == 0 && c != 0 {
-        return None;
+        return Solution {
+            x: 0,
+            y: 0,
+            valid: false,
+        };
     } else if a == 0 {
-        return Some((0, c / b));
+        return Solution {
+            x: 0,
+            y: c / b,
+            valid: true,
+        };
     } else if b == 0 {
-        return Some((c / a, 0));
+        return Solution {
+            x: c / a,
+            y: 0,
+            valid: true,
+        };
     } else {
-        let (y, x) = diophantine(b, a % b, c)?;
-        let y = y - (a / b) * x;
-        Some((x, y))
+        let mut s = diophantine(b, a % b, c);
+        std::mem::swap(&mut s.x, &mut s.y);
+        s.y = s.y - (a / b) * s.x;
+        return s;
     }
 }
 
@@ -58,16 +81,16 @@ mod tests {
 
     #[test]
     fn diophantine_test() {
-        let (x, y) = diophantine(3, 5, 10).unwrap();
-        assert_eq!(3*x + 5*y, 10);
+        let s = diophantine(3, 5, 10);
+        assert_eq!(3 * s.x + 5 * s.y, 10);
 
-        let (x, y) = diophantine(3, 5, 11).unwrap();
-        assert_eq!(3*x + 5*y, 11);
+        let s = diophantine(3, 5, 11);
+        assert_eq!(3 * s.x + 5 * s.y, 11);
 
-        let (x, y) = diophantine(3, 5, 12).unwrap();
-        assert_eq!(3*x + 5*y, 12);
+        let s = diophantine(3, 5, 12);
+        assert_eq!(3 * s.x + 5 * s.y, 12);
 
-        let (x, y) = diophantine(3, 7, 22).unwrap();
-        assert_eq!(3*x + 7*y, 22);
+        let s = diophantine(3, 7, 22);
+        assert_eq!(3 * s.x + 7 * s.y, 22);
     }
 }

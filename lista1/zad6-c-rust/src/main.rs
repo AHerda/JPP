@@ -15,9 +15,11 @@ fn main() {
     println!("Factorial of 5: {}", unsafe { factorial(5) });
     println!("GCD of 12 and 15: {}", unsafe { gcd(12, 15) });
     let solution = unsafe { diophantine(3, 6, 18) };
-    println!("Diophantine solution: x = {}, y = {}", solution.x, solution.y);
+    println!(
+        "Diophantine solution: x = {}, y = {}",
+        solution.x, solution.y
+    );
 }
-
 
 #[cfg(test)]
 mod test {
@@ -58,76 +60,18 @@ mod test {
     #[test]
     fn test_diophantine() {
         unsafe {
-            let a = 2;
-            let b = 3;
-            let c = 5;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
+            for c in 5..25 {
+                let s = diophantine(2, 3, c);
+                assert!(s.valid);
+                if s.valid {
+                    assert_eq!(2 * s.x + 3 * s.y, c);
+                }
 
-            let c = 6;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 7;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 8;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 9;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 10;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 11;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 12;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 13;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
-            }
-
-            let c = 14;
-            let s = diophantine(a, b, c);
-            assert!(s.valid);
-            if s.valid {
-                assert_eq!(a * s.x + b * s.y, c);
+                let s = diophantine(5, 11, c);
+                assert!(s.valid);
+                if s.valid {
+                    assert_eq!(5 * s.x + 11 * s.y, c);
+                }
             }
         }
     }
