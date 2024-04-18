@@ -1,16 +1,29 @@
-class Main {
-	public static void main(String[] args) {
-		GF a = new GF(1234560);
-		GF b = new GF(10);
-		GF c = a.add(b);
-		System.out.println("a + b = " + c.getValue());
-		c = a.sub(b);
-		System.out.println("a - b = " + c.getValue());
-		c = a.mul(b);
-		System.out.println("a * b = " + c.getValue());
-		c = a.div(b);
-		System.out.println("a / b = " + c.getValue());
-	}
+public class Main {
+    public static void main(String[] args) {
+        GF a = new GF(1234560);
+        GF b = new GF(10);
+
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+
+        GF c = a.add(b);
+        System.out.println("a + b = " + c);
+        c = a.sub(b);
+        System.out.println("a - b = " + c);
+        c = a.mul(b);
+        System.out.println("a * b = " + c);
+        c = a.div(b);
+        System.out.println("a / b = " + c);
+
+        System.out.println("a == b <=> " + a.eq(b));
+        System.out.println("a != b <=> " + a.neq(b));
+        System.out.println("a < b <=> " + (a.lt(b)));
+        System.out.println("a > b <=> " + (a.gt(b)));
+        System.out.println("a <= b <=> " + (a.le(b)));
+        System.out.println("a >= b <=> " + (a.ge(b)));
+
+        System.out.println("\nCharacteristic od a = " + GF.characteristic());
+    }
 }
 
 class GF {
@@ -27,6 +40,11 @@ class GF {
                 break;
             }
         }
+
+        if (prime == 0) {
+            return p;
+        }
+
         while (p != 1) {
             if (p % prime == 0) {
                 p /= prime;
@@ -38,11 +56,11 @@ class GF {
     }
 
 	public GF(long value) {
-		this.value = value % P;
+		this.value = (value % P + P) % P;
 	}
 
 	public GF add(GF other) {
-		return new GF((value + other.value) % P);
+		return new GF(value + other.value);
 	}
 
 	public void addAssign(GF other) {
@@ -50,7 +68,7 @@ class GF {
 	}
 
 	public GF sub(GF other) {
-		return new GF((value + P - other.value) % P);
+		return new GF(value + P - other.value);
 	}
 
 	public void subAssign(GF other) {
@@ -58,7 +76,7 @@ class GF {
 	}
 
 	public GF mul(GF other) {
-		return new GF((value * other.value) % P);
+		return new GF(value * other.value);
 	}
 
 	public void mulAssign(GF other) {

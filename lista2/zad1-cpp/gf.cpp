@@ -17,7 +17,7 @@ GF GF::inv() const {
 		r = tmp;
 	}
 	if (r > 1) {
-		throw std::runtime_error("Value is not invertible.");
+		throw std::runtime_error(value + " is not invertible");
 	}
 	if (t < 0) {
 		t += P;
@@ -35,6 +35,11 @@ std::pair<uint64_t, uint64_t> GF::characteristic() const {
 			break;
 		}
 	}
+
+	if (prime == 0) {
+		return std::make_pair(P, 1);
+	}
+
 	while (p != 1) {
 		if (p % prime == 0) {
 			p /= prime;

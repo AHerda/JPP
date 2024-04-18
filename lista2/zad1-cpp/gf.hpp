@@ -8,7 +8,7 @@ const uint64_t P = 1234577;
 
 class GF {
 public:
-	GF(int64_t value_) : value((value_ + P) % P) {}
+	GF(int64_t value_) : value((value_ % P + P) % P) {}
 
 	GF operator+(const GF& other) const { return GF(value + other.value); }
 	GF& operator+=(const GF& other) { value = (value + other.value) % P; return *this; }
