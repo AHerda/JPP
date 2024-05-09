@@ -19,7 +19,7 @@ bool check(uint64_t number) {
             }
             tmp /= i;
         } else {
-            i += 1;
+            i++;
         }
     }
     if (tmp > 1 && std::pow(number, (P - 1) / tmp) == 1) {

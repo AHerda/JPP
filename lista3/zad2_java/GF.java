@@ -1,33 +1,9 @@
-public class Main {
-    public static void main(String[] args) {
-        GF a = new GF(1234560);
-        GF b = new GF(10);
+package JPP.lista3.zad2_java;
 
-        System.out.println("a = " + a);
-        System.out.println("b = " + b);
+import JPP.lista3.zad2_java.Arithmetics;
 
-        GF c = a.add(b);
-        System.out.println("a + b = " + c);
-        c = a.sub(b);
-        System.out.println("a - b = " + c);
-        c = a.mul(b);
-        System.out.println("a * b = " + c);
-        c = a.div(b);
-        System.out.println("a / b = " + c);
-
-        System.out.println("a == b <=> " + a.eq(b));
-        System.out.println("a != b <=> " + a.neq(b));
-        System.out.println("a < b <=> " + (a.lt(b)));
-        System.out.println("a > b <=> " + (a.gt(b)));
-        System.out.println("a <= b <=> " + (a.le(b)));
-        System.out.println("a >= b <=> " + (a.ge(b)));
-
-        System.out.println("\nCharacteristic od a = " + GF.characteristic());
-    }
-}
-
-class GF {
-	private static final long P = 1234577;
+public class GF implements Arithmetics {
+	public static final long P = 1234577;
 
 	private long value;
 
@@ -145,5 +121,20 @@ class GF {
 	@Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+	@Override
+    public Arithmetics mul(Arithmetics other) {
+        return mul((GF) other);
+    }
+
+    @Override
+    public Arithmetics div(Arithmetics other) {
+        return div((GF) other);
+    }
+
+    @Override
+    public Arithmetics fromLong(long value) {
+        return new GF(value);
     }
 }
