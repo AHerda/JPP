@@ -1,8 +1,10 @@
 [package]
-name = "zad3-rust"
+name = "zad3-rust3"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+rand = "0.8.5"
+zad3-rust2 = { version = "0.1.0", path = "../../lista2/zad3-rust2" }

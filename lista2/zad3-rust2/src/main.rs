@@ -1,4 +1,4 @@
-use zad3_rust::gf::gf::GF;
+use zad3_rust2::gf::gf::GF;
 
 fn main() {
     let a = GF::new(1234560);

@@ -1,13 +1,14 @@
 package JPP.lista3.zad2_java;
 
 import java.util.Random;
+import java.util.Optional;
 
 import JPP.lista3.zad2_java.DHSetup;
 
 public class User<T extends Arithmetics> {
 	private long secret;
 	private DHSetup<T> setup;
-	private T key;
+	private Optional<T> key;
 
 	public User(DHSetup<T> setup) {
 		Random rand = new Random();
@@ -21,14 +22,20 @@ public class User<T extends Arithmetics> {
 	}
 
 	public void setKey(T key_) {
-		key = setup.power(key_, secret);
+		key = Optional.of(setup.power(key_, secret));
 	}
 
 	public T encrypt(T message) {
-		return (T) message.mul(key);
+		if (!key.isPresent()) {
+			throw new IllegalStateException("Key not set");
+		}
+		return (T) message.mul(key.get());
 	}
 
 	public T decrypt(T cipher) {
-		return (T) cipher.div(key);
+		if (!key.isPresent()) {
+			throw new IllegalStateException("Key not set");
+		}
+		return (T) cipher.div(key.get());
 	}
 }

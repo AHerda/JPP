@@ -2,6 +2,7 @@
 #define USRE_HPP
 
 #include <cstdint>
+#include <optional>
 
 #include "DHSetup.hpp"
 
@@ -10,7 +11,7 @@ class User {
 private:
 	uint64_t secret;
 	DHSetup<T> setup;
-	T key;
+	std::optional<T> key;
 public:
 	User(DHSetup<T>& setup_) : setup(setup_), secret(rand()){
 		std::cout << "Secret: " << this->secret << std::endl;
@@ -25,11 +26,17 @@ public:
 	}
 
 	T encrypt(T message) {
-		return message * key;
+		if (!key) {
+			throw std::runtime_error("Key not set");
+		}
+		return message * key.value();
 	}
 
 	T decrypt(T cipher) {
-		return cipher / key;
+		if (!key) {
+			throw std::runtime_error("Key not set");
+		}
+		return cipher / key.value();
 	}
 };
 

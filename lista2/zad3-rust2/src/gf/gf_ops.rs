@@ -5,6 +5,12 @@ use std::{
 
 use super::gf::{self, GF};
 
+impl From<u64> for GF {
+    fn from(value: u64) -> Self {
+        GF::new(value as i128)
+    }
+}
+
 impl Display for GF {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.value())
