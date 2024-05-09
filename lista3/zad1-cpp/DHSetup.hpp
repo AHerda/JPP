@@ -15,7 +15,7 @@ public:
 	DHSetup() {
 		std::random_device rd;
 		std::mt19937 rng(rd());
-		std::uniform_int_distribution<unsigned long> dist(1, P - 1);
+		std::uniform_int_distribution<uint64_t> dist(1, P - 1);
 
 		uint64_t g;
 		do {

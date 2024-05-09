@@ -35,7 +35,7 @@ public class DHSetup<T extends Arithmetics> {
 		long g;
 
 		do {
-			g = (1 + rand.nextLong(1, GF.P));
+			g = 1 + rand.nextLong() % (GF.P - 1);
 		} while (!check(g));
 
 		this.generator = constructor.apply(g);

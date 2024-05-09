@@ -12,7 +12,9 @@ private:
 	DHSetup<T> setup;
 	T key;
 public:
-	User(DHSetup<T>& setup_) : setup(setup_) {}
+	User(DHSetup<T>& setup_) : setup(setup_), secret(rand()){
+		std::cout << "Secret: " << this->secret << std::endl;
+	}
 
 	T getPublicKey() {
 		return setup.power(setup.getGenerator(), secret);

@@ -3,7 +3,7 @@ package JPP.lista3.zad2_java;
 import JPP.lista3.zad2_java.Arithmetics;
 
 public class GF implements Arithmetics {
-	public static final long P = 1234577;
+	public static final long P = 1234567891;
 
 	private long value;
 

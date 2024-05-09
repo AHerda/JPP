@@ -1,5 +1,7 @@
 package JPP.lista3.zad2_java;
 
+import java.util.Random;
+
 import JPP.lista3.zad2_java.DHSetup;
 
 public class User<T extends Arithmetics> {
@@ -8,7 +10,10 @@ public class User<T extends Arithmetics> {
 	private T key;
 
 	public User(DHSetup<T> setup) {
+		Random rand = new Random();
 		this.setup = setup;
+		this.secret = 1 + Math.abs(rand.nextLong()) % (GF.P - 1);
+		System.out.println("Secret: " + secret);
 	}
 
 	public T getPublicKey() {
@@ -20,10 +25,10 @@ public class User<T extends Arithmetics> {
 	}
 
 	public T encrypt(T message) {
-		return (T) key.mul(message);
+		return (T) message.mul(key);
 	}
 
 	public T decrypt(T cipher) {
-		return (T) key.div(cipher);
+		return (T) cipher.div(key);
 	}
 }
