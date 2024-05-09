@@ -4,6 +4,7 @@ Cargo.lock
 
 # executables
 *.exe
+build/
 
 # vscode
 .vscode/

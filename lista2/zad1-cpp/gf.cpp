@@ -1,6 +1,18 @@
 #include <stdexcept>
 
+#include "consts.hpp"
 #include "gf.hpp"
+
+GF::GF(int64_t value_) : value((value_ % P + P) % P) {}
+
+GF GF::operator+(const GF& other) const { return GF(value + other.value); }
+GF& GF::operator+=(const GF& other) { value = (value + other.value) % P; return *this; }
+GF GF::operator-(const GF& other) const { return GF(value + P - other.value); }
+GF& GF::operator-=(const GF& other) { value = (value + P - other.value) % P; return *this; }
+GF GF::operator*(const GF& other) const { return GF(value * other.value); }
+GF& GF::operator*=(const GF& other) { value = (value * other.value) % P; return *this; }
+GF GF::operator/(const GF& other) const { return *this * other.inv(); }
+GF& GF::operator/=(const GF& other) { *this *= other.inv(); return *this; }
 
 GF GF::inv() const {
 	int64_t t = 0;

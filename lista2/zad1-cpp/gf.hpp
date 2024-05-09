@@ -4,20 +4,21 @@
 #include <ostream>
 #include <cstdint>
 
-const uint64_t P = 1234577;
+//const uint64_t P = 1234567891;
 
 class GF {
 public:
-	GF(int64_t value_) : value((value_ % P + P) % P) {}
+	GF() : value(0) {}
+	GF(int64_t value_);
 
-	GF operator+(const GF& other) const { return GF(value + other.value); }
-	GF& operator+=(const GF& other) { value = (value + other.value) % P; return *this; }
-	GF operator-(const GF& other) const { return GF(value + P - other.value); }
-	GF& operator-=(const GF& other) { value = (value + P - other.value) % P; return *this; }
-	GF operator*(const GF& other) const { return GF(value * other.value); }
-	GF& operator*=(const GF& other) { value = (value * other.value) % P; return *this; }
-	GF operator/(const GF& other) const { return *this * other.inv(); }
-	GF& operator/=(const GF& other) { *this *= other.inv(); return *this; }
+	GF operator+(const GF& other) const;
+	GF& operator+=(const GF& other);
+	GF operator-(const GF& other) const;
+	GF& operator-=(const GF& other);
+	GF operator*(const GF& other) const;
+	GF& operator*=(const GF& other);
+	GF operator/(const GF& other) const;
+	GF& operator/=(const GF& other);
 
 	friend bool operator==(const GF& lhs, const GF& rhs) { return lhs.value == rhs.value; }
 	friend bool operator!=(const GF& lhs, const GF& rhs) { return lhs.value != rhs.value; }
