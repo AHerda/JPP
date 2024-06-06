@@ -11,3 +11,4 @@ Adrian Herda
 * [<b>Lista 1</b>](listy_zadan/lista1.pdf)
 * [<b>Lista 2</b>](listy_zadan/lista2.pdf)
 * [<b>Lista 3</b>](listy_zadan/lista3.pdf) - Lista jest zależna od listy nr 2
+* [<b>Lista 4</b>](listy_zadan/lista4.pdf)
