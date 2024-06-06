@@ -81,13 +81,13 @@ where
 }
 
 fn power(mut a: u128, mut b: u128) -> u128 {
-	let mut result = 1;
-	while b > 0 {
-		if b & 1 == 1 {
-			result = (result * a) % (P as u128);
-		}
-		a = (a * a) % (P as u128);
-		b >>= 1;
-	}
-	result
+    let mut result = 1;
+    while b > 0 {
+        if b & 1 == 1 {
+            result = (result * a) % (P as u128);
+        }
+        a = (a * a) % (P as u128);
+        b >>= 1;
+    }
+    result
 }
