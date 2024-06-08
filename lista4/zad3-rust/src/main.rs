@@ -3,8 +3,7 @@ use std::sync::{Arc, Mutex};
 mod lib;
 use lib::filozof::Filozof;
 
-
-const FILOZOFOWIE: usize = 10;
+const FILOZOFOWIE: usize = 5;
 const DO_ZJEDZENIA: usize = 3;
 
 fn main() {
@@ -14,9 +13,12 @@ fn main() {
 
     let filozofowie: Vec<_> = (0..FILOZOFOWIE)
         .map(|i| {
-            let lewy = widelce[i].clone();
-            let prawy = widelce[(i + 1) % FILOZOFOWIE].clone();
-            Filozof::new(i, lewy, prawy, DO_ZJEDZENIA)
+            Filozof::new(
+                i,
+                widelce[i].clone(),
+                widelce[(i + 1) % FILOZOFOWIE].clone(),
+                DO_ZJEDZENIA,
+            )
         })
         .collect();
 

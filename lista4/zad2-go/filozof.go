@@ -45,6 +45,8 @@ func (f *filozof) najedzony() bool {
 }
 
 func (f *filozof) jedzenie(wg *sync.WaitGroup, kolej *kolejka) {
+	defer wg.Done()
+
 	spaces := strings.Repeat(" ", f.id)
 
 	for !f.najedzony() {
@@ -52,22 +54,20 @@ func (f *filozof) jedzenie(wg *sync.WaitGroup, kolej *kolejka) {
 
 		fmt.Printf("%s[%d] mysli\n", spaces, f.id)
 		f.mysli()
-		fmt.Printf("%s[%d] bierze lewy widelec\n", spaces, f.id)
 		f.wezLewy()
-		fmt.Printf("%s[%d] bierze prawy widelec\n", spaces, f.id)
+		fmt.Printf("%s[%d] bierze lewy widelec\n", spaces, f.id)
 		f.wezPrawy()
+		fmt.Printf("%s[%d] bierze prawy widelec\n", spaces, f.id)
 		fmt.Printf("%s[%d] je (zostało %d obiadów)\n", spaces, f.id, f.doZjedzenia-1)
 		f.mysli()
 		f.jedz()
-		fmt.Printf("%s[%d] odklada prawy widelec\n", spaces, f.id)
 		f.odlozLewy()
 		fmt.Printf("%s[%d] odklada lewy widelec\n", spaces, f.id)
 		f.odlozPrawy()
+		fmt.Printf("%s[%d] odklada prawy widelec\n", spaces, f.id)
 
 		kolej.odloz()
 	}
-
-	defer wg.Done()
 }
 
 func (f *filozof) mysli() {

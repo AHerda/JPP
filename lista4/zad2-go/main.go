@@ -33,11 +33,12 @@ func (k *kolejka) odloz() {
 }
 
 func main() {
-	kolej := newKolejka(filozofowieIlosc)
 	widelce := make([]*widelec, filozofowieIlosc)
 	for i := 0; i < filozofowieIlosc; i++ {
 		widelce[i] = new(widelec)
 	}
+
+	kolej := newKolejka(filozofowieIlosc - 1)
 	filozofowie := make([]filozof, filozofowieIlosc)
 	for i := 0; i < filozofowieIlosc; i++ {
 		filozofowie[i] = newFilozof(i, widelce[i], widelce[(i+1)%filozofowieIlosc])
